@@ -1,0 +1,94 @@
+<section class="items-center justify-center md:mt-10 flex mt-2 py-2">
+    <div class="md:px-4">
+        <div class="columns-1 md:columns-2 space-y-2 lg:columns-3">
+            <div *ngFor="let url of Urls; trackBy: trackByFn"
+                class=" rounded-md mb-3 relative group ">
+                <a [href]="url.photographer_url"
+                    class="md:hidden flex items-center space-x-2 p-2 rounded-sm shadow-sm ">
+                    <div
+                        class="flex justify-center flex-col leading-5">
+                        <div class="flex space-x-2 items-center">
+                            <p
+                                class="text-black">{{url.photographer}}
+                            </p>
+                            <i
+                                class='text-black  bx bxs-badge-check'></i>
+                        </div>
+                    </div>
+                </a>
+                <div #imageContainer class="relative">
+                    <img class="w-full md:w-[400px]  rounded-sm shadow-sm"
+                    [src]="url.src.large" alt loading="lazy">
+
+
+                </div>
+                <!-- mobile dowenload -->
+                    <div
+                    class=" md:hidden flex justify-between items-center px-3 py-2">
+                    <div
+                        class="py-3 flex items-center justify-end px-2 space-x-3">
+                        <span
+                            class="border cursor-pointer flex items-center px-2 py-1 rounded-sm shadow-sm bg-white"><i
+                                class='bx bxs-heart text-[#363636d3] text-xl'></i></span>
+                        <span
+                            class="border cursor-pointer flex items-center px-2 py-1 rounded-sm shadow-sm bg-white"><i
+                                class='bx bx-plus text-[#363636d3] text-xl'></i></span>
+                    </div>
+                    <div class="mx-2" >
+                        <button *ngIf="progress==0" (click)=" downloadImage(url.src.original)"
+                            class="px-3 py-1 border  shadow-sm text-[#363636d3] font-thin rounded-md">Dowenload</button>
+                            <button  *ngIf="progress!=0"  
+                            class="px-6 py-1 border  shadow-sm text-[#363636d3] font-thin rounded-md">{{progress}}%</button>
+                        </div>
+                    
+                    
+                </div>
+
+                <div
+                    class="   transition-all md:group-hover:flex hidden absolute w-full top-0 h-full z-10 bg-[#14141482]">'
+                    <div class="w-full h-full relative">
+                        <div
+                            class="py-3 flex items-center justify-end px-5 space-x-3">
+                            <span
+                                class="cursor-pointer flex items-center px-2 py-1 rounded-sm shadow-sm bg-white"><i
+                                    class='bx bxs-heart text-[#363636d3] text-xl'></i></span>
+                            <span
+                                class="cursor-pointer flex items-center px-2 py-1 rounded-sm shadow-sm bg-white"><i
+                                    class='bx bx-plus text-[#363636d3] text-xl'></i></span>
+                        </div>
+                        <div
+                            class="absolute bottom-0 w-full py-4 flex items-center justify-between px-5 space-x-3">
+                            <a [href]="url.photographer_url"
+                                class=" flex items-center space-x-2 px-2 py-1 rounded-sm shadow-sm ">
+
+                                <div
+                                    class="flex justify-center flex-col leading-5">
+                                    <p
+                                        class="text-white">{{url.photographer}}</p>
+                                    <div class="flex space-x-2 items-center">
+                                        <p
+                                            class="text-[#d7d7d7f7] font-thin">Avilable
+                                            for
+                                            hire</p>
+                                        <i
+                                            class='text-white  bx bxs-badge-check'></i>
+                                    </div>
+                                </div>
+                            </a>
+                            <span (click)="downloadImage(url.src.original)" *ngIf="progress==0"
+                                class="cursor-pointer flex items-center px-2 py-1 rounded-sm shadow-sm bg-white"><i
+                                    class='bx bxs-download text-[#363636d3] text-xl'></i></span>
+                                    <button  *ngIf="progress!=0"  
+                                    class="px-6 py-1 border bg-white  shadow-sm text-[#363636d3] font-thin ">{{progress}}%</button>        
+                        </div>
+                    </div>
+                </div>
+            </div>
+          
+        </div>
+    </div>
+    <span class="loader" *ngIf=" $loadingImage |async"></span>
+</section>
+<div class="flex items-center justify-center py-20 px-5 ">
+    <span class="loader" *ngIf="loadingwithloadingImage && $loadingImage |async"></span>
+</div>

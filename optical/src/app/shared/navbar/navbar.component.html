@@ -1,0 +1,163 @@
+<nav class="flex bg-white fixed top-0 z-30 w-full space-x-3 items-center py-2 px-3 md:px-6">
+    <!--logo-->
+    <div class="logo">
+        <h3 routerLink=""  class="cursor-pointer text-[16px] md:text-2xl  font-semibold ">optical</h3>
+    </div>
+    <!--search input-->
+    <div class="search relative w-[70%] md:w-[60%]">
+        <div *ngIf="focuse || shows" (mouseover)="show()" (mouseleave)="show()"
+            class="hidden md:block py-4 px-3 w-full br-search absolute border shadow-sm rounded-md bg-white top-12 left-1">
+            <p class="text-[15px]">Trending Topics</p>
+            <div class="py-2 flex items-center gap-3  flex-wrap">
+                <a [routerLink]="'/t/Cool Tone'" (click)="show()"
+                    class="border shadow-md px-1 py-1 rounded-lg flex items-center space-x-2">
+                    <img src="assets/cool-tone.avif" class="w-8 h-8 rounded-md" alt>
+                    <p>Cool Tone</p>
+                </a>
+                <a [routerLink]="'/t/Traval'" (click)="show()"
+                    class="border shadow-md px-1 py-1 rounded-lg flex items-center space-x-2">
+                    <img src="assets/Traval.avif" class="w-8 h-8 rounded-md" alt>
+                    <p>Traval</p>
+                </a>
+                <a [routerLink]="'/t/Architecture-Interior'" (click)="show()"
+                    class="border shadow-md px-1 py-1 rounded-lg flex items-center space-x-2">
+                    <img src="assets/ar.avif" class="w-8 h-8 rounded-md" alt>
+                    <p>Architecture-Interior</p>
+                </a>
+                <a [routerLink]="'/t/3D Renders'" (click)="show()"
+                    class="border shadow-md px-1 py-1 rounded-lg flex items-center space-x-2">
+                    <img src="assets/3d re.avif" class="w-8 h-8 rounded-md" alt>
+                    <p>3D Renders</p>
+                </a>
+            </div>
+            <!-- ------------------------ -->
+            <p class="mt-2 text-[15px]">Trending Collections</p>
+            <div class="py-2 flex items-center gap-3  flex-wrap">
+                <a *ngFor="let collect of collection.slice(15)" [routerLink]="'/t/'+collect.title" (click)="show()"
+                    class="hover:bg-black hover:text-white transition-all border shadow-sm px-3 py-1 rounded-md flex items-center space-x-2">
+                    <p>{{collect.title}}</p>
+                </a>
+            </div>
+        </div>
+        <i class='bx bx-exit-fullscreen text-xl text-[#868686] top-2 right-3 absolute'></i>
+        <i class='bx bx-search text-xl text-[#868686] top-2 left-3 absolute'></i>
+        <input (focus)="fnFocus()" (blur)="fnblur()" type="search" name="search" [(ngModel)]="search"
+            (keydown.enter)="GetSearch()" id="search" placeholder="search high-resoulation images" autocomplete="off"
+            class="flex text-[#868686] items-center w-full px-10 py-2 outline-none  bg-[#eee] rounded-xl ">
+    </div>
+    <!--link navbar-->
+    <div class="link  space-x-4  md:px-5 hidden lg:flex">
+        <a class="text-[#868686] relative">Blog <span class="absolute -top-2 text-green-400 -left-4 w-full text-[10px]">Soon</span></a>
+        <a class="text-[#5b5bd5]" routerLink="optical">Optical+</a>
+    </div>
+    <!--button-->
+    <div class="relative button-submit-photo hidden md:flex">
+        <button class="hover:bg-black hover:text-white transition-all py-1 px-4 w-[150px] border border-[#5d5d5d2c] shadow-md text-[#868686] rounded-md ">join Now</button>
+    </div>
+    <!--icons-->
+    <div class="flex space-x-3 md:space-x-8 icons relative ">
+        <!-- <span class="hidden md:block"><i class=' bx bxs-bell-ring text-2xl text-[#868686]'></i></span> -->
+     
+        <div class>
+            <div class="md:block relative ">
+                <i *ngIf="!AllMenue" class='cursor-pointer bx bx-menu text-2xl text-[#868686]'
+                    (click)="getAllMenue()"></i>
+                <i *ngIf="AllMenue" class='bx bx-x cursor-pointer  text-3xl text-[#868686]' (click)="getAllMenue()"></i>
+                <div *ngIf="AllMenue"
+                    class="fade-in-2 gap-3 flex flex-col md:flex-row  justify-evenly mt-6 -left-52  md:-left-[540px] absolute px-5 w-[240px] md:w-[600px]  py-9  bg-white shadow-md rounded-md">
+                    <div class="flex flex-col ">
+                        <div class="font-bold flex w-full items-center justify-between">
+                            <div class="flex items-center" (click)="ShowMenue(menue1)">
+                                <i class=' mr-2 text-xl text-[#787878] bx bxs-business'></i>
+                                <span class>Company</span>
+                            </div>
+                            <i *ngIf="!CompanyMenue"
+                                class='block md:hidden bx bx-chevron-right text-2xl font-bold text-[#5a5a5a]'></i>
+                            <i *ngIf="CompanyMenue"
+                                class='block md:hidden bx bx-chevron-down text-2xl font-bold text-[#5a5a5a]'></i>
+                        </div>
+                        <div #menue1 class="fade-in-2 hidden md:block Company">
+                            <div class="px-4 flex flex-col mb-3 space-y-1.5 mt-3">
+                                <a href class="text-gray-600 transition-colors duration-300   hover:underline hover:text-blue-500">About</a>
+                                <a href class="text-gray-600 transition-colors duration-300   hover:underline hover:text-blue-500">Join Now</a>
+                                <a href class="text-gray-600 transition-colors duration-300   hover:underline hover:text-blue-500">Contact Us</a>
+                                <a href class="text-gray-600 transition-colors duration-300   hover:underline hover:text-blue-500">Help center</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col ">
+                        <div class="font-bold flex w-full items-center justify-between">
+                            <div class="flex items-center" (click)="ShowMenue(menue2)">
+                                <i class='mr-2 text-xl text-[#787878]  bx bxl-adobe'></i>
+                                <span class>Designers</span>
+                            </div>
+                            <i *ngIf="!ProductMenue"
+                                class='block md:hidden bx bx-chevron-right text-2xl font-bold text-[#5a5a5a]'></i>
+                            <i *ngIf="ProductMenue"
+                                class='block md:hidden bx bx-chevron-down text-2xl font-bold text-[#5a5a5a]'></i>
+                        </div>
+                        <div #menue2 class="hidden md:block Product">
+                            <div class="px-4 fade-in-2 flex flex-col mb-3 space-y-1.5 mt-3">
+                                <a href="https://www.pexels.com/@googledeepmind/" class="text-gray-600 transition-colors duration-300  hover:underline hover:text-blue-500">
+                                    Google DeepMind</a>
+                                    <a href="https://www.pexels.com/@divinetechygirl/"
+                                    class="text-gray-600 transition-colors duration-300   hover:underline hover:text-blue-500">
+                                    Cottonbro studio</a>
+                                    <a href="#" class="text-gray-600 transition-colors duration-300   hover:underline hover:text-blue-500">
+                                        Biola Visuals</a>
+                                    <a href="https://www.pexels.com/@mo-eid-1268975/" class="text-gray-600 transition-colors duration-300   hover:underline hover:text-blue-500">
+                                        Mo Eid</a>
+                              
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col ">
+                        <div class="font-bold flex w-full items-center justify-between">
+                            <div class="flex items-center" (click)="ShowMenue(menue3)">
+                                <i class=' mr-2 text-xl text-[#787878] bx bx-face'></i>
+                                <span class>Community</span>
+                            </div>
+                            <i *ngIf="!CommunityMenue"
+                                class='block md:hidden bx bx-chevron-right text-2xl font-bold text-[#5a5a5a]'></i>
+                            <i *ngIf="CommunityMenue"
+                                class='block md:hidden bx bx-chevron-down text-2xl font-bold text-[#5a5a5a]'></i>
+                        </div>
+                        <div #menue3 class="fade-in-2 hidden md:block Community">
+                            <div class="px-4  flex flex-col mb-3 space-y-1.5 mt-3">
+    
+                                <a href class="text-[#656565] flex items-center">Topics <span class="text-green-400 font-bold ml-2"> Soon</span></a>
+                                <a href class="text-[#656565] flex items-center">Collections <span class="text-green-400 font-bold ml-2"> Soon</span></a>
+                                <a href class="text-[#656565] flex items-center">Trends<span class="text-green-400 font-bold ml-2"> Soon</span></a>
+                                <a href class="text-[#656565] flex- items-center">Stats <span class="text-green-400 font-bold ml-2"> Soon</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--/icons-->
+</nav>
+<header class="py-3 mt-[55px] px-6  relative border-b border-[#5d5d5d2c] ">
+    <div #link_container class="  link flex space-x-5 items-center flex-nowrap overflow-x-auto ">
+        <a [routerLink]="link=='Editorial'?'':''+link | lowercase" routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact:true}" *ngFor="let link of links.slice(0,3)"
+            class="text-[#616161] transition-all cursor-pointer hover:text-black hover:scale-[1.01] flex-none  text-[13px]">{{link}}</a>
+        <a routerLink="optical" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+            class="text-[#5b5bd5] block md:hidden transition-all cursor-pointer hover:text-black hover:scale-[1.01] flex-none  text-[13px]">optical+</a>
+
+        <span><i class='bx bxs-network-chart text-[#616161] text-xl'></i></span>
+        <a [routerLink]="'/t/'+link.title | lowercase " routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact:true}" *ngFor="let link of collection;let index =index"
+            (click)="sendIndex(index)"
+            class="text-[#616161] transition-all cursor-pointer hover:text-black hover:scale-[1.01]  flex-none  text-[13px]">{{link.title}}</a>
+        <button class=" scroll-right absolute top-[8px]  px-2 md:px-7 py-1 text-xl bg-[#fcfbfb] right-0 "
+            (click)="scrollRight()"><i class='bx bxs-chevron-right text-[#616161] font-bold '></i></button>
+        <button class=" scroll-right absolute top-[8px] px-3  md:px-7 py-1 text-xl bg-[#fcfbfb] -left-5 "
+            (click)="scrollLeft()" *ngIf="isleft"><i class='bx bxs-chevron-left text-[#616161] font-bold '></i></button>
+    </div>
+</header>

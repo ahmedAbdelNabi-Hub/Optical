@@ -1,0 +1,101 @@
+<section>
+    <!-- container -->
+    <div class=" py-4 lg:px-10">
+        <div class="block md:hidden px-5">
+            <h2 class="text-2xl font-semibold my-2 mt-6">Optical</h2>
+        </div>
+        <div class="flex space-x-3 mt-5  flex-nowrap overflow-x-scroll  ">
+            <!-- indro -->
+            <div class="hidden md:flex flex-col py-4 px-7  justify-end min-w-[50%]">
+                <h2 class="text-5xl font-semibold my-2 flex items-center"> Optical</h2>
+                <p class="text-xl  text-black">The internet’s
+                    source for visuals.</p>
+                <div class="flex flex-col lg:flex-row justify-between">
+                    <p class="text-xl  text-black">Powered by
+                        creators everywhere.</p>
+                    <button
+                        class=" w-[260px]  hover:bg-white py-1 bg-[#eee] rounded-md shadow-md justify-center flex items-center space-x-2 ">
+                        <span class="text-[12px]">supported by</span>
+                        <div class="flex items-center">
+                            <i class='bx bxl-squarespace mr-1 text-[#2c364c] text-xl'></i><span
+                                class="text-[13px] font-semibold">SQUARESPACE</span>
+                        </div>
+                    </button>
+                </div>
+                <div class="search relative w-full mt-5">
+                    <i class='bx bx-exit-fullscreen text-xl text-[#868686] top-4 right-3 absolute'></i>
+
+                    <input type="search" name="search" id="search" autocomplete="off" name="search" [(ngModel)]="search"
+                        (keydown.enter)="GetSearch()" placeholder="search high-resoulation images"
+                        class="flex text-[#868686] items-center w-full px-10 py-4 text-[16px] outline-none shadow-sm  bg-[#eee] rounded-md ">
+                </div>
+            </div>
+            <!--  -->
+
+            <!-- Discover -->
+            <a routerLink="optical"
+                class=" lg:w-auto flex-none h-[250px] md:h-[276px] pt-0 md:pt-6 overflow-hidden min-w-[80%] md:min-w-[40%] lg:min-w-[23%] border shadow-sm rounded-md bg-black">
+                <div class="relative flex flex-row   md:flex-col h-full md:h-[260px]">
+                    <div class="z-20 px-4 h-full md:h-[30%] mb-4 flex flex-col justify-center ">
+                        <p class="text-[13px] text-white font-bold">Discover
+                            Optical.</p>
+                        <p class="text-[18px] text-white font-bold">Unlimited
+                            Dowenload.</p>
+                        <p class="text-[18px] text-white font-bold"> Full legal
+                            protection.</p>
+
+                    </div>
+                    <div
+                        class="absolute rotate-90 md:rotate-0 bottom-0 right-0  md:-bottom-16 w-[50%] md:w-full h-full bg-no-repeat bg-cover background_image">
+                    </div>
+                </div>
+            </a>
+            <!-- collection -->
+            <div
+                class="mb-2 md:mb-0 flex-none py-4 px-5 border shadow-sm rounded-md md:hidden   lg:block  w-[70%] lg:w-[23%]">
+                <div class="flex justify-between  ">
+                    <p class="text-black font-bold"> Collections</p>
+                    <p class="text-slate-500"> See all</p>
+                </div>
+                <div class="flex flex-col space-y-4 mt-4 justify-center ">
+                    <a routerLink="/t/photograpth"
+                        class=" md:px-3 py-2  hover:bg-[#eee] rounded-xl  transition-all flex items-center space-x-2">
+                        <img class="w-8 h-8 rounded-md" src="assets/photo-1707090804669-72f8a7f3348e.avif" alt>
+                        <div>
+                            <p>outstanding photograpth</p>
+                            <p class="text-[12px] text-slate-500">by
+                                photograpth</p>
+                        </div>
+                    </a>
+                    <a routerLink="/t/Super Bowel"
+                        class=" md:px-3 py-2  hover:bg-[#eee] rounded-xl  transition-all flex items-center space-x-2">
+                        <img class="w-9 h-8 rounded-md" src="assets/photo-1576568699714-a3f4950805d5.avif" alt>
+                        <div>
+                            <p>Super Bowel</p>
+                            <p class="text-[12px] text-slate-500">by
+                                optical</p>
+                        </div>
+                    </a>
+                    <a routerLink="/t/Black history"
+                        class=" md:px-3 py-2  hover:bg-[#eee] rounded-xl  transition-all flex items-center space-x-2">
+                        <img class="w-9 h-8 rounded-md" src="assets/photo-1674210803712-b75d73df67d1.avif" alt>
+                        <div>
+                            <p>Black history</p>
+                            <p class="text-[12px] text-slate-500">by
+                                Sunsan (Lewis) Penix</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <button
+            class="  md:hidden mx-3  w-[260px]  hover:bg-white py-1 bg-[#eee] rounded-md shadow-md justify-center flex items-center space-x-2 ">
+            <span class="text-[12px]">supported by</span>
+            <div class="flex items-center">
+                <i class='bx bxl-squarespace mr-1 text-[#2c364c] text-xl'></i><span
+                    class="text-[13px] font-semibold">SQUARESPACE</span>
+            </div>
+        </button>
+    </div>
+</section>
+<app-images [query]="'no'"></app-images>

@@ -1,0 +1,18 @@
+/*    [style.backgroundImage]="'linear-gradient(45deg, #0c0c0c31 0%, #0000001b 100%), url('+bgImage+')'" */
+
+.background_image {
+    transition: background-image 3s ease-in-out, opacity 3s ease-in-out;
+    background-size: cover;
+    background-position: center;
+  }
+  /* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+/* Note: This might change in future versions */
+* {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}

@@ -1,0 +1,39 @@
+.fade-in {
+  animation: fadeIn ease 4s;
+  -webkit-animation: fadeIn ease 4s;
+  -moz-animation: fadeIn ease 4s;
+  -o-animation: fadeIn ease 4s;
+}
+
+.fade-in-2 {
+  animation: fadeIn ease 3s;
+  -webkit-animation: fadeIn ease 3s;
+  -moz-animation: fadeIn ease 3s;
+  -o-animation: fadeIn ease 3s;
+}
+
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.bgHover {
+  transition: .2s ease-in;
+}
+
+.bgHover:hover {
+
+  transform: scale(1.02);
+  cursor: pointer;
+  border-color: rgba(164, 164, 250, 0.421);
+}

@@ -1,0 +1,170 @@
+// emitBackgroundImage(image:string) {
+//   const backgroundImageUrl = image // Some URL or data representing the background image
+//   this.BackgroundImage.emit(backgroundImageUrl);
+// }
+// downloadImage(id: string): void {
+//   const unsplashApiUrl = `https://api.unsplash.com/photos/${id}/download?client_id=9m5Etw8AI1no-i5EUQqpWnc7SpOigq34Q8lnJaYZZvo`;
+
+//   this.http.get<{ url: string }>(unsplashApiUrl).pipe(
+//     switchMap(response => {
+//       const imageUrl = response.url;
+//       console.log(imageUrl);
+//       return this.http.get(imageUrl, { responseType: 'blob' }).pipe(
+//         catchError(error => {
+//           console.error('Error downloading image:', error);
+//           return of(null); // Return a null value in case of error
+//         })
+//       );
+//     })
+//   ).subscribe((imageBlob: Blob | null) => {
+//     if (imageBlob) {
+//       saveAs(imageBlob, `image_${id}.jpg`);
+//     } else {
+//       console.error('Image blob is null.');
+//     }
+//   });
+// }
+
+
+
+
+collections
+  title
+
+description
+media_count
+photos_count
+videos_count
+
+
+// this.subscription = this.route.data.subscribe(data => {
+//   this.data = data['data'];
+// });
+// this.link = this.route.snapshot.routeConfig?.path?.slice(2);
+this.subscription = this.route.params.subscribe(params => {
+  // Access the 'id' parameter from the route
+  this.link = params['id'];
+  // Now you can use this.id in your component
+});
+if (this.link) {
+  this.bgImage = this.BackgroundImages.indexOf(this.link.slice(0, 2) + '.jpg');
+  this.imagesService.getTopic(this.link).subscribe(data => {
+    this.coverImage = data;
+  });
+}
+
+
+
+
+
+import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ImagesService } from '../core/services/images.service';
+import { ObservableInput, Subscription, forkJoin, Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { saveAs } from 'file-saver'
+import { ServicesService } from '../core/services/services.service';
+import { ActivatedRoute } from '@angular/router';
+
+interface ImagesServiceInterface {
+  [key: string]: Function;
+}
+@Component({
+  selector: 'app-images',
+  templateUrl: './images.component.html',
+  styleUrls: ['./images.component.css']
+})
+
+export class ImagesComponent implements OnInit, OnDestroy {
+  Urls: any[] = [];
+  @Input() request!: keyof ImagesService;
+  @Input() topic: string = '';
+  currentPage: number = 3; // Current page number
+  isLoading: boolean = false; // Flag to prevent multiple requests
+  private subscriptions: Subscription[] = [];
+  requests: Observable<any>[] = [];
+  constructor(private route: ActivatedRoute, private _images: ImagesService, private http: HttpClient, private _service: ServicesService) { }
+  ngOnInit(): void {
+    if (typeof this.request === 'string' && typeof this._images[this.request] === 'function') {
+      this.requests = [
+        this._images[this.request]('1', this.topic),
+        this._images[this.request]('2', this.topic),
+        this._images[this.request]('3', this.topic),
+      ];
+    }
+    
+    const combinedSubscription = forkJoin(this.requests).subscribe(
+      (responses: any[]) => {
+        // Concatenate the arrays of URLs from all responses
+        this.Urls =this.Urls.concat(...responses) // Assuming `responses` is an array of arrays
+        // this.emitBackgroundImage(this.Urls[0].urls.full) 
+      },
+      error => {
+        console.error('Error:', error);
+      }
+    );
+    this.subscriptions.push(combinedSubscription);
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  onScroll(event: any): void {
+    if ((window.innerHeight + window.scrollY + 2) >= document.documentElement.scrollHeight) {
+      this.getData();
+    }
+  }
+
+
+  getData(): void {
+    if (!this.isLoading) {
+      this.isLoading = true;
+      this._images[this.request]('' + this.currentPage, this.topic).subscribe(
+        (data) => {
+          this.Urls.push(...data); // Assuming your data is an array of URLs
+          //console.log(this.Urls)
+          this.currentPage++; // Increment page number for the next request
+          this.isLoading = false;
+        },
+        (error) => {
+          console.error('Error:', error);
+          this.isLoading = false;
+        }
+      );
+    }
+  }
+
+
+  downloadImage(id: string) {
+    const unsplashApiUrl = `https://api.unsplash.com/photos/${id}/download?client_id=9m5Etw8AI1no-i5EUQqpWnc7SpOigq34Q8lnJaYZZvo`;
+    // Make a request to the Unsplash API to get the image URL
+    this.http.get<{ url: string }>(unsplashApiUrl).subscribe(response => {
+      const imageUrl = response.url;
+      console.log(imageUrl)
+      // Now, download the image using the obtained URL
+      this.http.get(imageUrl, { responseType: 'blob' }).subscribe((imageBlob: Blob) => {
+        // Save the image blob as a file
+        console.log("sadsa", imageBlob)
+        saveAs(imageBlob, 'image.jpg');
+      });
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  }
+  
+}
+ngOnInit(): void {
+  this.getTopic();
+  if (this.topic.includes('t/')) {
+   //console.log(this.topic.slice(2))
+   this._images.getTopicphoto('1',this.topic.slice(2)).subscribe(data=>{
+    this.Urls=data;
+    console.log(this.Urls,+''+this.topic.slice(2))
+   })
+  }
+  else if(this.topic==''){
+    this._images.gettestImage('1').subscribe(data=>{
+      this.Urls=data;
+      console.log(this.Urls,+''+this.topic.slice(2))
+     })
+  }
+}

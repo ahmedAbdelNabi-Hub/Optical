@@ -1,0 +1,337 @@
+translate data between component 
+1-@Input   ----> parent to child
+2-@output  ----> child to parent
+3-Viewchild(ref) variable:ElementRef;
+--------------------------------------
+binding --> [] 
+- [style],[src],[href],[class] 
+interaction --> {{}}
+---------------------------------------
+one way and two way binding
+one way --> []
+two way -->[(ngModel)]  and  in app-module import formsmodel 
+-------------------------------------------
+(event):
+   (click),(keyup)="function($event)" and event object conyain all information,(keyup.enter)='' and there a lot of event
+------------------------------------------
+directive types :
+  structure dierctive : ngIf , ngFor ,ngSiwtch
+  Attrabuite dierctive: ngclass ,ngstyle 
+  custom dierctive : build dierctive form scratch.
+
+  Some special thing write in directive:
+    ElementRef,
+    Renderer2,
+    HostListener,
+    HostBinding, 
+  -----------------------------------------
+  pipe: 
+   In Angular, a "pipe" is a feature that allows you to transform the data displayed in your templates. Pipes are used for formatting, filtering, and modifying data before it's rendered in the view. They are a convenient way to make your data more presentable and to perform common operations without writing complex logic in your component classes.
+   
+    pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
+    fetch('https://dummyjson.com/users')
+    .then(res => res.json())
+    .then(console.log);
+
+
+    fetch('https://dummyjson.com/users/1')
+    .then(res => res.json())
+    .then(console.log);
+
+
+
+    fetch('https://dummyjson.com/users/search?q=John')
+    .then(res => res.json())
+    .then(console.log);
+------------------------------------------------     
+Routing:
+
+----------------------------------------------
+<!-- 
+ <p *ngIf="room?.avalableRoom"> 
+    Room list :
+ </p>
+ <button class="px-2 py-2 border shadow-md " (click)="updateRoom('-1')">add</button>
+ <button class="px-2 py-2 border shadow-md " (click)="updateRoom('+1')">delete</button>
+ 
+
+ <div>
+  <table>
+   <tr>
+  
+      <th>numberRoom</th>
+      <th>img</th>
+      <th>price</th>
+      <th>description</th>
+      <th>title</th>
+   </tr>
+   <tr *ngFor="let room of rooDetails ; trackBy: trackByItemId">
+     <td>{{room.numberRoom}}</td>
+     <td>{{room.img}}</td>
+     <td>{{room.price}}</td>
+     <td>{{room.description}}</td>
+     <td>{{room.title}}</td>
+   </tr>
+  </table>
+  <button (click)="getinfo()">add</button>
+ </div>
+
+ <div>
+   Component: Basic lg sized tab 
+<section class="max-w-full" aria-multiselectable="false">
+   <ul class="flex items-center border-b border-slate-200" role="tablist">
+     <li role="presentation">
+       <button class="inline-flex items-center justify-center w-full h-12 gap-2 px-6 -mb-px text-sm font-medium tracking-wide transition duration-300 border-b-2 rounded-t focus-visible:outline-none whitespace-nowrap border-emerald-500 hover:border-emerald-600 focus:border-emerald-700 text-emerald-500 hover:text-emerald-600 focus:text-emerald-700 hover:bg-emerald-50 focus:bg-emerald-50 disabled:cursor-not-allowed disabled:border-slate-500 stroke-emerald-500 hover:stroke-emerald-600 focus:stroke-emerald-700" id="tab-label-1a" role="tab" aria-setsize="3" aria-posinset="1" tabindex="0" aria-controls="tab-panel-1a" aria-selected="true">
+         <span (click)="chanageTab('1')">Tab 1</span>
+       </button>
+     </li>
+     <li role="presentation">
+       <button class="inline-flex items-center justify-center w-full h-12 gap-2 px-6 -mb-px text-sm font-medium tracking-wide transition duration-300 border-b-2 border-transparent rounded-t focus-visible:outline-none justify-self-center hover:border-emerald-500 focus:border-emerald-600 whitespace-nowrap text-slate-700 stroke-slate-700 hover:bg-emerald-50 hover:text-emerald-500 focus:stroke-emerald-600 focus:bg-emerald-50 focus:text-emerald-600 hover:stroke-emerald-600 disabled:cursor-not-allowed disabled:text-slate-500" id="tab-label-2a" role="tab" aria-setsize="3" aria-posinset="2" tabindex="-1" aria-controls="tab-panel-2a" aria-selected="false">
+         <span (click)="chanageTab('2')">Tab 2</span>
+       </button>
+     </li>
+     <li role="presentation">
+       <button class="inline-flex items-center justify-center w-full h-12 gap-2 px-6 -mb-px text-sm font-medium tracking-wide transition duration-300 border-b-2 border-transparent rounded-t focus-visible:outline-none justify-self-center hover:border-emerald-500 focus:border-emerald-600 whitespace-nowrap text-slate-700 stroke-slate-700 hover:bg-emerald-50 hover:text-emerald-500 focus:stroke-emerald-600 focus:bg-emerald-50 focus:text-emerald-600 hover:stroke-emerald-600 disabled:cursor-not-allowed disabled:text-slate-500" id="tab-label-3a" role="tab" aria-setsize="3" aria-posinset="3" tabindex="-1" aria-controls="tab-panel-3a" aria-selected="false">
+         <span (click)="chanageTab('3')">Tab 3</span>
+       </button>
+     </li>
+   </ul>
+   <div [ngSwitch]="selectors">
+     <div *ngSwitchCase="'tab-1'" class="px-6 py-4" id="tab-panel-1a" aria-hidden="false" role="tabpanel" aria-labelledby="tab-label-1a" tabindex="-1">
+       <p >
+         What is the recipe for successful achievement? To my mind there are just four essential ingredients: Choose a career you love, give it the best there is in you, seize your opportunities, and be a member of the team.
+       </p>
+     </div>
+     <div *ngSwitchCase="'tab-2'" class=" px-6 py-4" id="tab-panel-2a" aria-hidden="true" role="tabpanel" aria-labelledby="tab-label-2a" tabindex="-1">
+       <p >
+         One must be entirely sensitive to the structure of the material that one is handling. One must yield to it in tiny details of execution, perhaps the handling of the surface or grain, and one must master it as a whole.
+       </p>
+     </div>
+     <div *ngSwitchCase="'tab-3'" class=" px-6 py-4" id="tab-panel-3a" aria-hidden="true" role="tabpanel" aria-labelledby="tab-label-3a" tabindex="-1">
+       <p >
+         Even though there is no certainty that the expected results of our work will manifest, we have to remain committed to our work and duties; because, even if the results are slated to arrive, they cannot do so without the performance of work.
+       </p>
+     </div>
+   </div>
+ </section>
+  
+ </div>
+-->
+
+<!-- <header
+  class="py-4 mx-auto flex justify-between bg-white z-20 w-[100%] items-center fixed top-0 shadow-md">
+  <div class=" flex w-[50%]">
+    <div>
+      <p class="text-[25px] py-2 pl-5 font-[500]">Betterlearn</p>
+    </div>
+    <div>
+      <ul class="flex mx-10 py-3  bg-[#d7faff] rounded-3xl ">
+        <li class="mx-1 text-[18px] "><a href
+            class="p-2 hover:bg-white rounded-2xl ">Home</a></li>
+        <li class="mx-4 text-[18px] "><a href
+            class="p-2 hover:bg-white rounded-2xl ">Learn</a></li>
+        <li class="mx-4 text-[18px] "><a href
+            class="p-2 hover:bg-white rounded-2xl ">WorkSpace</a></li>
+        <li class="mx-4 text-[18px] "><a href
+            class="p-2 hover:bg-white rounded-2xl ">Certification</a></li>
+        <li class="mx-1 text-[18px] "><a href
+            class="p-2 hover:bg-white rounded-2xl ">Job</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="w-[30%] flex justify-end px-10">
+    <div class="flex justify-evenly items-center">
+      <p class="text-[18px] mx-3 py-1">logout</p>
+    </div>
+  </div>
+</header>
+
+<main class="flex space-x-5 ">
+  <div
+    class="w-[15%] h-[100vh] sticky top-0 left-0 bottom-0  bg-black overflow-y-scroll ">
+  </div>
+  <div class="relative w-[100%] bg-slate-400">
+  </div>
+</main> -->
+
+
+
+
+
+
+----------------------------------------------------------
+<section class="relative mt-10 px-4 h-[99vh] bg-no-repeat bg-cover bg-center add ">
+<div class="md:w-[700px] pt-40 px-4 flex  flex-col">
+ <p class="font-bold text-xl text-yellow-300">FilmLane</p>
+ <p class="font-bold text-2xl md:text-5xl text-white">Unlimeited <span class="text-yellow-300">MOVICE</span>, Tvs shows , & movice</p>
+  <button class="px-3 py-1 rounded-sm bg-yellow-300 text-black w-28 font-bold">Watch Now</button>
+</div>
+<div class="w-full flex justify-end md:px-12 items-end">
+  
+ <app-subfilm #component (indexImage)="resiveIndex($event)" [FilmImage]="FilmImage"></app-subfilm>
+
+</div>
+</section>
+<section class="py-5 px-7 flex text-xl space-x-5 text-white ">
+  <p class="cursor-pointer px-4 py-1 bg-gray-600 " (click)="typeFilme='action'">Action</p>
+  <p class="cursor-pointer px-4 py-1 bg-gray-600 "(click)="typeFilme='Drama'">Drama</p>
+
+</section>
+<section class="mx-auto  mt-20 px-4">
+  <p class="text-sm text-center text-yellow-400 font-medium ">Best Tv subres</p>
+  <p class="uppercase font-medium text-xl text-center text-white">World Best Tv
+    series</p>
+</section>
+<div #ref class=" scroll-smooth  md:px-7  flex    gap-4 flex-wrap  take">
+  <!-- <div class="text-white text-4xl p-14 w-[600px] font-serif leading-relaxed uppercase flex-none ">Tranding MOVICE To watch Now Right Now</div> -->
+  <img *ngFor="let film of FilmImage | searchFilter:typeFilme ;trackBy:track" class="shadow-sm shadow-gray-900 w-40 h-40 md:w-auto md:h-auto  hover:scale-105 transition-all cursor-pointer" [src]="film.image" alt>
+</div>
+
+<section class="text-white font-mono text-2xl flex flex-col py-10 px-4 mt-2 h-96">
+<h1 appRandomcolor="green">Hello in new section</h1>
+</section>
+
+<h1 *ngIf="isFalse" class="text-white font-bold">THIS IS ngIf</h1>
+<h1 *appUnless="isFalse" class="text-white font-bold">{{date |date:'medium':'+2'}}</h1>
+<h1 *appUnless="isFalse" class="text-white font-bold">{{date |date:'yyyy/M/d/hh/a'}}</h1>
+
+
+
+
+<nav
+    class=" fixed w-full p-2 z-10 top-0   bg-gradient-to-r from-[#0b1b1d] to-[#0a1819]  mx-auto grid grid-cols-5 gap-2">
+    <div class="col-span-1  text-white">
+        <title class="font-got text-xl  text-white font-bold flex items-end ">MovieBox</title>
+    </div>
+    <div class="hidden md:flex col-span-3  justify-center space-x-7 items-center text-white">
+        <a routerLink
+            class="relative font-got font-medium text-[14px] uppercase transition-all cursor-pointer  "
+            routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Home</a>
+        <a [routerLink]="['film','20']"
+            class="relative font-medium text-[14px] uppercase transition-all cursor-pointer "
+            routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">MY
+            LIST</a>
+        <a
+            class="relative font-got font-medium text-[14px] uppercase transition-all cursor-pointer "
+            routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">MOVIES</a>
+
+    </div>
+    <div
+        class="col-span-4 md:col-span-1 space-x-9 px-10 flex justify-end items-center  text-white">
+        <input placeholder="Search.." type="search"
+            class="w-50 py-1 px-5 rounded-sm  shadow-sm outline-none  bg-slate-700 text-slate-400 ">
+        <a routerLink="login" class="font-medium text-[15px] px-3 py-1 bg-red-800 text-white rounded-sm ">Login</a>
+        
+    </div>
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+<div class="max-w-5xl px-4 py-4 mx-auto lg:py-8 md:px-6">
+  <div class="flex flex-wrap -mx-4">
+      <div class="w-full px-4 md:w-2/6">
+          <div class="sticky flex top-0 z-0 overflow-hidden">
+              <div class=" z-0  w-32 mb-6 lg:mb-10 md:w-64 lg:h-96">
+                  <img
+                      [src]="preFiexImage_bakground+Details?.poster_path"
+                      alt
+                      class="object-cover w-full lg:h-full">
+              </div>
+              <h2
+              class="max-w-xl mt-2 mb-6 text-2xl font-bold text-white md:text-4xl">
+              {{ Details?.title ? Details.title : Details?.name }}
+              </h2>
+          </div>
+      </div>
+      <div class="w-full px-8 mt-5 md:w-2/3">
+          <div class="lg:pl-10">
+              <div class="mb-8 ">
+                  <span
+                      class="text-lg font-bold text-rose-500 dark:text-rose-200">
+                      <i
+                          class='bx bxs-star text-yellow-400 mr-2'></i>{{Details.vote_average}}
+                  </span>
+                
+                  <div class="flex items-center">
+                      <ul class="flex mr-2">
+                          <li>
+                              <p class="text-white font-bold">
+                                  {{Details?.release_date ?
+                                  Details?.release_date:
+                                  Details?.first_air_date }}
+
+                              </p>
+                              <div class="flex space-x-2 flex-wrap">
+                                  <p
+                                      class="text-white font-bold px-2 py-1 bg-[#3c34db96]"
+                                      *ngFor="let genres of Details.genres">
+                                      {{genres?.name}}
+                                  </p>
+                              </div>
+                          </li>
+                      </ul>
+                  </div>
+                  <div class="flex flex-col justify-center">
+                      <p class="text-white font-bold mt-3">
+                          She's everything. He's just Ken.
+                      </p>
+                      <p
+                          class="text-slate-300 font-bold text-2xl mb-4 mt-2 ">
+                          Overview
+                      </p>
+                      <p
+                          class="max-w-2xl mb-8 text-[13px] md:text-xl font-bold text-white">
+                          {{Details?.overview}}
+                      </p>
+                  </div>
+
+              </div>
+          </div>
+      </div>
+  </div>
+  <p class="text-white font-bold mb-2">Social & Review</p>
+  <owl-carousel-o [options]="customOptions">
+      <ng-container *ngFor="let review of Review">
+          <ng-template carouselSlide [id]="review.id">
+              <div class="review  gap-2 px-2 my-2 ">
+                  <!-- Component: Toast Alert With Title and Text-->
+                  <div
+                      class="w-full flex-none px-4 py-3 text-sm border rounded  text-slate-200 border-slate-900 bg-[#0f2528]"
+                      role="alert">
+                      <div class="leading-4">
+                          <h3
+                              class="mb-2 font-semibold text-slate-50 text-[14px] md:text-xl ">A
+                              review by " {{review.author}} " </h3>
+                          <div class="flex space-x-2 items-center">
+                              <span
+                                  class="px-2 py-1 rounded-md text-white bg-black flex items-center">
+                                  <i
+                                      class='bx bxs-star text-yellow-300 mx-1'></i>{{review.author_details.rating}}
+                              </span>
+                              <p
+                                  class="text-white mb-5 font-bold text-[12px] mx-3">Written
+                                  by {{review.author}} on
+                                  {{review.created_at | date:
+                                  'dd/MM/yyyy'}}</p>
+
+                          </div>
+                      </div>
+                      <p class="line-clamp-6">{{review.content}} </p>
+                  </div>
+
+                  <!-- End Toast Alert With Title and Text-->
+              </div>
+
+          </ng-template>
+      </ng-container>
+  </owl-carousel-o>
+
+</div>

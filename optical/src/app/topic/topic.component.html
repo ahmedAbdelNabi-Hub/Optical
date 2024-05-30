@@ -1,0 +1,126 @@
+<section>
+    <!-- container -->
+    <div class=" py-4 lg:px-10">
+       
+        <div class="flex space-x-3 mt-5  flex-nowrap overflow-x-scroll  ">
+            <!-- indro -->
+            <div class="px-7 md:px-16 mt-10">
+                <h3 class="text-3xl md:text-4xl capitalize font-semibold  text-[#000000]">Free
+                    {{link}} Photos</h3>
+                <p
+                    class="line-clamp-2 md:line-clamp-3 my-3 text-[12px] md:text-[16px]  text-[#2a2a2a] w-full md:w-[95%] lg:w-[90%]">
+                    {{description}}
+                </p>
+              
+                <p class="text-[#060606]  mt-1 text-[16px] ">Open to
+                    contributions until <i class=' font-bold text-[#000000] bx bxl-slack-old'></i><span
+                        class="text-white font-semibold"></span>
+                </p>
+                <!-- <div class="flex space-x-1 mt-3">
+                    <div
+                        class="bg-black text-white text-[12px]  px-4 text-center py-1 flex justify-center items-center">
+                        <p>Photos <span class="mx-1 text-[#ffffff] font-bold">{{infoCollection?.photos_count ||
+                                '5'}}k</span>
+                        </p>
+                    </div>
+                    <div
+                        class="bg-black text-white text-[12px]  px-4 text-center py-1 flex justify-center items-center">
+                        <p>Video <span class="mx-1 text-[#ffffff] font-bold">{{infoCollection?.videos_count
+                                || '3'}}k</span></p>
+                    </div>
+                    <div
+                        class="bg-black text-white text-[12px]  px-4 text-center py-1 flex justify-center items-center">
+                        <p>Media <span class="mx-1 text-[#ffffff] font-bold">{{infoCollection?.media_count ||
+                                '150'}}</span></p>
+                    </div>
+                </div> -->
+                <button class="rounded-sm bg-black text-white px-4 py-1 mt-10 border shadow-sm">Submit to
+                    <span class="font-bold">{{link || ''}}</span></button>
+            </div>
+            <!--  -->
+
+           
+                <!-- Discover -->
+                <a routerLink="optical"
+                    [ngStyle]="{'background-image': 'linear-gradient(45deg, #0c0c0c31 0%, #0000001b 100%),url(' + bgImage+ ')'}"
+                    class=" hidden md:block lg:w-auto relative flex-none h-[250px] md:h-[276px] pt-0 md:pt-6 overflow-hidden min-w-[80%] background_image md:min-w-[40%] lg:min-w-[23%] border shadow-sm rounded-md bg-black">
+
+                    <div class="absolute w-full top-0 h-full flex justify-start px-2 py-3 items-end">
+                        <p class="text-[12px] line-clamp-1 text-white font-sans">{{bgImageAlt}}</p>
+                    </div>
+                </a>
+                <!-- collection -->
+                <div
+                    class="mb-2 hidden md:mb-0 flex-none py-4 px-5 border shadow-sm rounded-md md:hidden   lg:block  w-[70%] lg:w-[23%]">
+                    <div class="flex justify-between  ">
+                        <p class="text-black font-bold"> Collections</p>
+                        <p class="text-slate-500"> See all</p>
+                    </div>
+                    <div class="flex flex-col space-y-4 mt-4 justify-center ">
+                        <a routerLink="/t/photograpth"
+                            class=" md:px-3 py-2  hover:bg-[#eee] rounded-xl  transition-all flex items-center space-x-2">
+                            <img class="w-8 h-8 rounded-md" src="assets/photo-1707090804669-72f8a7f3348e.avif" alt>
+                            <div>
+                                <p>outstanding photograpth</p>
+                                <p class="text-[12px] text-slate-500">by
+                                    photograpth</p>
+                            </div>
+                        </a>
+                        <a routerLink="/t/Super Bowel"
+                            class=" md:px-3 py-2  hover:bg-[#eee] rounded-xl  transition-all flex items-center space-x-2">
+                            <img class="w-9 h-8 rounded-md" src="assets/photo-1576568699714-a3f4950805d5.avif" alt>
+                            <div>
+                                <p>Super Bowel</p>
+                                <p class="text-[12px] text-slate-500">by
+                                    optical</p>
+                            </div>
+                        </a>
+                        <a routerLink="/t/Black history"
+                            class=" md:px-3 py-2  hover:bg-[#eee] rounded-xl  transition-all flex items-center space-x-2">
+                            <img class="w-9 h-8 rounded-md" src="assets/photo-1674210803712-b75d73df67d1.avif" alt>
+                            <div>
+                                <p>Black history</p>
+                                <p class="text-[12px] text-slate-500">by
+                                    Sunsan (Lewis) Penix</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+
+
+
+<app-images (urlsChange)="handleUrlsChange($event)" [query]="link"></app-images>
+<!-- <section [ngStyle]="{'background-image': 'linear-gradient(to right, #ffffff, #ffffff, #ffffff00,#ffffff00), url(' + bgImage + ')'}"
+class="flex flex-col border-none md:flex-row md:h-[60vh] bg-no-repeat background_image">
+ <div class="px-7 md:px-16 mt-10">
+    <h3 class="text-3xl md:text-4xl capitalize font-semibold  text-[#000000]">Free
+        {{link}} Photos</h3>
+    <p
+        class="line-clamp-2 md:line-clamp-4 my-3 text-[12px] md:text-[15px]  text-[#2a2a2a] w-full md:w-[90%] lg:w-[80%]">
+        {{infoCollection?.description || ''}}
+    </p>
+    <button class="rounded-sm bg-white px-3 py-1 border shadow-sm">Submit to
+        <span class="font-bold">{{link || ''}}</span></button>
+    <p class="text-[#060606]  mt-2 text-[16px] ">Open to
+        contributions until <i class=' font-bold text-[#000000] bx bxl-slack-old'></i><span
+            class="text-white font-semibold"></span>
+    </p>
+    <div class="flex space-x-1 mt-3">
+        <div class="bg-black text-white text-[12px]  px-4 text-center py-1 flex justify-center items-center">
+            <p>Photos <span class="mx-1 text-[#ffffff] font-bold">{{infoCollection?.photos_count || '5'}}k</span>
+            </p>
+        </div>
+        <div class="bg-black text-white text-[12px]  px-4 text-center py-1 flex justify-center items-center">
+            <p>Video <span class="mx-1 text-[#ffffff] font-bold">{{infoCollection?.videos_count
+                    || '3'}}k</span></p>
+        </div>
+        <div class="bg-black text-white text-[12px]  px-4 text-center py-1 flex justify-center items-center">
+            <p>Media <span class="mx-1 text-[#ffffff] font-bold">{{infoCollection?.media_count || '150'}}</span></p>
+        </div>
+    </div>
+</div> 
+</section> -->

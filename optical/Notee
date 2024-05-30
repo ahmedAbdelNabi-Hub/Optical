@@ -1,0 +1,165 @@
+#Binding
+-------------------------------
+  interploation-- > {{ }}  one way(ts to html)
+properaty Binding-- > [scr]  element الحاجات اللي بتبقي داخل
+ex -. < img src = "" alt = "" >
+  src-- > is properaty, and class is properaty
+--------------------------------
+# two way data Binding
+[(NgModle)] you should import them in appmodule(FormsModul)
+---------------------------------
+  <!-- 
+
+import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ImagesService } from '../core/services/images.service';
+import { ObservableInput, Subscription, forkJoin, Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { saveAs } from 'file-saver'
+import { ServicesService } from '../core/services/services.service';
+import { ActivatedRoute } from '@angular/router';
+
+@Component({
+  selector: 'app-images',
+  templateUrl: './images.component.html',
+  styleUrls: ['./images.component.css']
+})
+
+export class ImagesComponent implements OnInit, OnDestroy {
+  Urls: any[] = [];
+  @Input() topic: string = '';
+  currentPage: number = 3; // Current page number
+  isLoading: boolean = false; // Flag to prevent multiple requests
+  private subscriptions: Subscription[] = [];
+  requests: Observable<any>[] = [];
+  constructor(private route: ActivatedRoute, private _images: ImagesService, private http: HttpClient, private _service: ServicesService) { }
+  ngOnInit(): void {
+    this.requests = [
+      this._images.getphoto('1', this.topic),
+      this._images.getphoto('2', this.topic),
+      this._images.getphoto('3', this.topic),
+    ];
+    const combinedSubscription = forkJoin(this.requests).subscribe(
+      (responses: any[]) => {
+        // Concatenate the arrays of URLs from all responses
+        this.Urls = this.Urls.concat(...responses) // Assuming `responses` is an array of arrays
+        // this.emitBackgroundImage(this.Urls[0].urls.full) 
+        console.log(this.Urls)
+      },
+      error => {
+        console.error('Error:', error);
+      }
+    );
+    this.subscriptions.push(combinedSubscription);
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  onScroll(event: any): void {
+    if ((window.innerHeight + window.scrollY + 2.5) >= document.documentElement.scrollHeight) {
+      this.getData();
+    }
+  }
+
+
+  getData(): void {
+    if (!this.isLoading) {
+      this.isLoading = true;
+      this._images.getphoto('' + this.currentPage, this.topic).subscribe(
+        (data) => {
+          this.Urls.push(...data); // Assuming your data is an array of URLs
+          //console.log(this.Urls)
+          this.currentPage++; // Increment page number for the next request
+          this.isLoading = false;
+        },
+        (error) => {
+          console.error('Error:', error);
+          this.isLoading = false;
+        }
+      );
+    }
+  }
+  // if(this.route.config[2].path=='optical'){
+  //   this.isActiveHeader=false
+  // }
+  // else{
+  //   this.isActiveHeader=true
+  // }
+
+  downloadImage(id: string) {
+    const unsplashApiUrl = `https://api.unsplash.com/photos/${id}/download?client_id=9m5Etw8AI1no-i5EUQqpWnc7SpOigq34Q8lnJaYZZvo`;
+    // Make a request to the Unsplash API to get the image URL
+    this.http.get<{ url: string }>(unsplashApiUrl).subscribe(response => {
+      const imageUrl = response.url;
+      console.log(imageUrl)
+      // Now, download the image using the obtained URL
+      this.http.get(imageUrl, { responseType: 'blob' }).subscribe((imageBlob: Blob) => {
+        // Save the image blob as a file
+        console.log("sadsa", imageBlob)
+        saveAs(imageBlob, 'image.jpg');
+      });
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[src],
+  [class.active],
+  [style.background - color]
+  [ngClass] = "{ 'active': isActive, 'highlight': isHighlighted } or [ngclass]="ele ? 'red' : 'black' "
+  [ngStyle] = "{ 'background-color': bgColor, 'font-size': fontSize }
+  [disabled]
+  [hidden]
+  [(ngModel)]
+    [innerHTML]
+----------------
+  (click)
+    (keyup)
+    (focus)
+    (blur)
+    (mouseover)
+    ....
+-->
+  @input, @output
+  @ViewChild
+  < !--
+  Directive
+  * ngIf
+  * ngFor
+  * ngSwitch:
+<div[ngSwitch]='variable' >
+  <p * ngSwitchCase="'tab-1'" > </p>
+    < p * ngSwitchCase="'tab-2'" > </p>
+      < /div>
+-->
+  <!--
+
+  Pipe 
+
+Formats a number as currency.Example: { { price | currency: 'USD': 'symbol': '1.2-2' } }
+Formats a date.Example: { { today | date: 'MM/dd/yyyy' } }
+Transforms text to lowercase.Example: { { 'Hello World' | lowercase } }
+Transforms text to uppercase.Example: { { 'Hello World' | uppercase } }
+Extracts a portion of a string or array.Example: { { text | slice: 0: 5 } }
+Unwraps a promise and displays the resolved value.Example: { { data$ | async } }
+Formats a number as a percentage.Example: { { ratio | percent: '1.2-2' } }
+Formats an object as JSON.Example: { { data | json } }
+-->
+

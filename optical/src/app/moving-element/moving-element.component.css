@@ -1,0 +1,45 @@
+/* linear-loop.component.css */
+.linear-loop-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100px; /* Adjust height as needed */
+  }
+  
+  .linear-loop-element {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50px; /* Adjust width as needed */
+    height: 50px; /* Adjust height as needed */
+    background-color: #333;
+    animation: linearLoop 9s linear infinite;
+  }
+  .linear-loop-element-1 {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    width: 50px; /* Adjust width as needed */
+    height: 50px; /* Adjust height as needed */
+    background-color: #333;
+    animation: linearLoop 2s linear infinite;
+  }
+  .linear-loop-element-2 {
+    position: absolute;
+    bottom: 0;
+    left: 30px;
+    width: 50px; /* Adjust width as needed */
+    height: 50px; /* Adjust height as needed */
+    background-color: #333;
+    animation: linearLoop 9s linear infinite;
+  }
+  
+  @keyframes linearLoop {
+    0% {
+      left: -50px;
+    }
+    100% {
+      left: 100%;
+    }
+  }
+  

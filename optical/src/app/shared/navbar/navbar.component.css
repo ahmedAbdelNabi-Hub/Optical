@@ -1,0 +1,74 @@
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+/* Note: This might change in future versions */
+* {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+}
+
+.active {
+    transition: .5s linear;
+    position: relative;
+    color: rgb(0, 0, 0);
+    padding-inline: 9px;
+    border-radius: 1px;
+    background-color: #ebebeb;
+    font-weight: 500;
+
+}
+
+.fade-in-2 {
+    animation: fadeIn ease .31s;
+
+}
+
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateX(400px);
+        
+    }
+
+    50% {
+        opacity: .5;
+        
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0px);
+       
+       
+        
+    }
+}
+
+/* .active::before {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 150%;
+    background-color: rgb(0, 0, 0);
+    top: -20px;
+    left: 0;
+    border-radius: 50%;
+
+} */
+
+/*
+.active::after {
+    content: '';
+    position: absolute;
+    width: 5px;
+    height: 100%;
+    background-color: rgb(200, 202, 251);
+    top: 0px;
+    right: 0;
+
+} */
